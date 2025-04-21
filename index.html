@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus Consulting | Professional Solutions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4F46E5;
+            --secondary: #10B981;
+            --accent: #F59E0B;
+            --dark: #1F2937;
+            --light: #F9FAFB;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s ease;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+        .text-gradient {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+}
+        
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: currentColor;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover:after,
+        .nav-link.active:after {
+            width: 100%;
+        }
+        
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 16px;
+            margin-bottom: 20px;
+        }
+        
+        .testimonial-card {
+            transition: all 0.3s ease;
+        }
+        
+        .testimonial-card:hover {
+            transform: scale(1.03);
+        }
+        
+        .timeline-item:not(:last-child):after {
+            content: '';
+            position: absolute;
+            left: 24px;
+            top: 32px;
+            height: calc(100% - 32px);
+            width: 2px;
+            background-color: var(--primary);
+        }
+        
+        .dark .timeline-item:not(:last-child):after {
+            background-color: var(--secondary);
+        }
+        
+        .toggle-checkbox:checked {
+            right: 0;
+            background-color: var(--primary);
+        }
+        
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: var(--secondary);
+        }
+        
+        /* Styles pour le menu mobile */
+        #mobile-menu {
+            transition: all 0.3s ease;
+            transform: translateY(-100%);
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        #mobile-menu.active {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* Styles pour la barre de navigation */
+        header {
+            transition: all 0.3s ease;
+        }
+        
+        header.scrolled {
+            background: rgba(79, 70, 229, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: currentColor;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover:after,
+        .nav-link.active:after {
+            width: 100%;
+        }
+        
+        .nav-link.active {
+            font-weight: 600;
+        }
+        
+        /* Animation pour le menu mobile */
+        #mobile-menu.active {
+            transform: translateX(0);
+        }
+        
+        /* Effet de flou sur le fond du menu mobile */
+        #mobile-menu::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-100 transition-colors duration-300">
+    <!-- Header -->
+    <header class="fixed w-full z-50 transition-all duration-300">
+        <nav class="gradient-bg shadow-lg">
+            <div class="container mx-auto px-4 py-4">
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center">
+                        <a href="#" class="text-2xl font-bold flex items-center text-white">
+                            <i class="fas fa-cubes mr-2"></i>
+                            <span>Nexus</span>
+                        </a>
+                    </div>
+
+                    <!-- Menu Desktop -->
+                    <div class="hidden md:flex items-center space-x-8">
+                        <a href="#home" class="nav-link text-white hover:text-indigo-200">Accueil</a>
+                        <a href="#services" class="nav-link text-white hover:text-indigo-200">Services</a>
+                        <a href="#products" class="nav-link text-white hover:text-indigo-200">Produits</a>
+                        <a href="#about" class="nav-link text-white hover:text-indigo-200">À Propos</a>
+                        <a href="#contact" class="nav-link text-white hover:text-indigo-200">Contact</a>
+                    </div>
+
+                    <!-- Bouton Menu Mobile -->
+                    <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Menu Mobile -->
+            <div id="mobile-menu" class="md:hidden fixed inset-0 bg-gray-900 bg-opacity-75 z-50 transform translate-x-full transition-transform duration-300 ease-in-out">
+                <div class="fixed inset-y-0 right-0 w-64 gradient-bg shadow-xl">
+                    <div class="flex items-center justify-between p-4 border-b border-white border-opacity-20">
+                        <span class="text-xl font-bold text-white">Menu</span>
+                        <button id="close-menu" class="text-white hover:text-indigo-200 focus:outline-none">
+                            <i class="fas fa-times text-xl"></i>
+                        </button>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex flex-col space-y-4">
+                            <a href="#home" class="nav-link text-white hover:text-indigo-200">Accueil</a>
+                            <a href="#services" class="nav-link text-white hover:text-indigo-200">Services</a>
+                            <a href="#products" class="nav-link text-white hover:text-indigo-200">Produits</a>
+                            <a href="#about" class="nav-link text-white hover:text-indigo-200">À Propos</a>
+                            <a href="#contact" class="nav-link text-white hover:text-indigo-200">Contact</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section min-h-screen flex items-center pt-20">
+        <div class="container mx-auto px-4 py-20">
+            <div class="max-w-3xl mx-auto text-center">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6 text-white">
+                    Solutions de <span class="text-gradient">Consultation</span> Professionnelle
+                </h1>
+                <p class="text-xl md:text-2xl mb-10 text-gray-300">
+                    Expertise, innovation et résultats concrets pour votre entreprise.
+                </p>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <a href="#services" class="bg-white text-indigo-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition transform hover:-translate-y-1">
+                        Explorer les Services
+                    </a>
+                    <a href="#contact" class="bg-indigo-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-indigo-700 transition transform hover:-translate-y-1">
+                        Demarrer
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="bg-white dark:bg-gray-800 py-12 shadow-lg">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div class="p-4">
+                    <div class="text-4xl font-bold text-indigo-600 dark:text-indigo-400 mb-2">250+</div>
+                    <div class="text-gray-600 dark:text-gray-300">Clients Satisfaits</div>
+                </div>
+                <div class="p-4">
+                    <div class="text-4xl font-bold text-emerald-600 dark:text-emerald-400 mb-2">50+</div>
+                    <div class="text-gray-600 dark:text-gray-300">Projets Réalisés</div>
+                </div>
+                <div class="p-4">
+                    <div class="text-4xl font-bold text-amber-600 dark:text-amber-400 mb-2">3+</div>
+                    <div class="text-gray-600 dark:text-gray-300">Années d'Expérience</div>
+                </div>
+                <div class="p-4">
+                    <div class="text-4xl font-bold text-purple-600 dark:text-purple-400 mb-2">40+</div>
+                    <div class="text-gray-600 dark:text-gray-300">Consultants Experts</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-gray-50 dark:bg-gray-900">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Nos <span class="text-gradient">Services Professionnels</span></h2>
+                <p class="max-w-2xl mx-auto text-gray-600 dark:text-gray-300">
+                    Nous proposons des services de consultation complets pour aider votre entreprise à prospérer à l'ère numérique.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg card-hover">
+                    <div class="service-icon bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-300">
+                        <i class="fas fa-lightbulb text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Consultation Stratégique</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-6">
+                        Analyses approfondies et recommandations personnalisées pour optimiser la stratégie de votre entreprise.
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-2xl font-bold text-indigo-600 dark:text-indigo-400" data-price="50">50 USD</span>
+                    </div>
+                </div>
+                
+                <!-- Service 2 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg card-hover">
+                    <div class="service-icon bg-emerald-100 dark:bg-emerald-900 text-emerald-600 dark:text-emerald-300">
+                        <i class="fas fa-cube text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Développement de Prototype</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-6">
+                        Développement et fabrication de prototypes physiques pour valider vos concepts et idées.
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-2xl font-bold text-emerald-600 dark:text-emerald-400" data-price="80">80 - 160 USD</span>
+                    </div>
+                </div>
+                
+                <!-- Service 3 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg card-hover">
+                    <div class="service-icon bg-amber-100 dark:bg-amber-900 text-amber-600 dark:text-amber-300">
+                        <i class="fas fa-users text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Accompagnement Projet</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-6">
+                        Accompagnement personnalisé tout au long de la réalisation de vos projets, de la conception à la mise en œuvre.
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-2xl font-bold text-amber-600 dark:text-amber-400" data-price="65">65 USD</span>
+                    </div>
+                </div>
+                
+                <!-- Service 4 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg card-hover">
+                    <div class="service-icon bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-300">
+                        <i class="fas fa-globe text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Services à distance / internationaux</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-6">
+                        Services de prototypage et de consultation à distance pour les entreprises internationales.
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-2xl font-bold text-purple-600 dark:text-purple-400" data-price="30">30 - 50 USD</span>
+                    </div>
+                </div>
+                
+                <!-- Service 5 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg card-hover">
+                    <div class="service-icon bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300">
+                        <i class="fas fa-cogs text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Services Techniques & d'Ingénierie</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-6">
+                        Services techniques spécialisés : CAO, analyse de contraintes, prototypage de circuits imprimés, impression 3D, découpe laser et usinage CNC.
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-2xl font-bold text-blue-600 dark:text-blue-400" data-price="25">25 USD</span>
+                    </div>
+                </div>
+                
+                <!-- Service 6 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl p-8 shadow-lg card-hover">
+                    <div class="service-icon bg-red-100 dark:bg-red-900 text-red-600 dark:text-red-300">
+                        <i class="fas fa-industry text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Micro-industrie</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-6">
+                        Services de micro-industrie : location de machines, atelier express, production en petite série et rénovation d'équipements industriels.
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-2xl font-bold text-red-600 dark:text-red-400" data-price="15">15 - 40 USD</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Produits Technologiques Section -->
+    <section id="products" class="py-20 bg-white dark:bg-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Nos <span class="text-gradient">Produits Technologiques</span></h2>
+                <p class="max-w-2xl mx-auto text-gray-600 dark:text-gray-300">
+                    Découvrez notre sélection de produits technologiques innovants pour les entreprises.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Produit 1 -->
+                <div class="bg-gray-50 dark:bg-gray-700 rounded-xl p-6 shadow-lg card-hover">
+                    <div class="relative w-full pb-[75%] mb-6 overflow-hidden rounded-lg">
+                        <img src="/Produits/manual-cup-sealer-m100-1.2.jpg"
+                             class="absolute top-0 left-0 w-full h-full object-cover object-center transform hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Machine de Cachetage de Tasse</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-6">
+                        500-650 Tasses / H, Scelleuse de tasses pour tasse de 190 mm de haut et 90/95 mm, Scelleuse à thé Boba électrique avec Panneau LCD à Commande numérique pour Café au Thé au Lait.
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-2xl font-bold text-indigo-600 dark:text-indigo-400" data-price="799.99">799.99 USD</span>
+                        <a href="https://api.whatsapp.com/send/?phone=50931434269&text&type=phone_number&app_absent=0" 
+                           class="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition">
+                            <i></i>Acheter
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Produit 2 -->
+                <div class="bg-gray-50 dark:bg-gray-700 rounded-xl p-6 shadow-lg card-hover">
+                    <div class="relative w-full pb-[75%] mb-6 overflow-hidden rounded-lg">
+                        <img src="Produits/electric-griddle-m100-1.2.jpg"  
+                             class="absolute top-0 left-0 w-full h-full object-cover object-center transform hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Plaque Chauffante Électrique</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-6">
+                        Plaque Chauffante, 21", Gril à Dessus Plat De Comptoir 1600W, Gril Teppanyaki en Acier Inoxydable avec Plaque de Cuisson en Fer, Contrôle de Température Réglable 122-572℉ 2 Pelles et Brosses, 110V.
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-2xl font-bold text-emerald-600 dark:text-emerald-400" data-price="300">300 USD</span>
+                        <a href="https://api.whatsapp.com/send/?phone=50931434269&text&type=phone_number&app_absent=0" 
+                           class="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition">
+                            <i></i>Acheter
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Produit 3 -->
+                <div class="bg-gray-50 dark:bg-gray-700 rounded-xl p-6 shadow-lg card-hover">
+                    <div class="relative w-full pb-[75%] mb-6 overflow-hidden rounded-lg">
+                        <img src="Produits/deep-fryer-m100-1.2.jpg"  
+                             class="absolute top-0 left-0 w-full h-full object-cover object-center transform hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Friteuse</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-6">
+                        Friteuse profonde électrique commerciale de partie supérieure du comptoir de friteuse avec de doubles réservoirs 3000W.
+                    </p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-2xl font-bold text-amber-600 dark:text-amber-400" data-price="450.99">450.99 USD</span>
+                        <a href="https://api.whatsapp.com/send/?phone=50931434269&text&type=phone_number&app_absent=0" 
+                           class="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition">
+                            <i></i>Acheter
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white dark:bg-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col lg:flex-row items-center">
+                <div class="lg:w-1/2 mb-12 lg:mb-0 lg:pr-12">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6">A Propos de <span class="text-gradient">Nexus Consulting</span></h2>
+                    <p class="text-lg text-gray-600 dark:text-gray-300 mb-6">
+                        Fondée il y a 3 ans, Nexus Consulting est une entreprise haïtienne spécialisée dans le conseil stratégique, l'ingénierie technique, le développement de prototypes et l'accompagnement de projets innovants.
+                    </p>
+                    <p class="text-lg text-gray-600 dark:text-gray-300 mb-8">
+Depuis sa création, Nexus Consulting s'est donnée pour mission de connecter idées, technologies et talents pour offrir des solutions concrètes, durables et adaptées aux réalités locales comme internationales. Forts d'un savoir-faire pluridisciplinaire mêlant mécatronique, robotique, prototypage rapide et services industriels, nous accompagnons aussi bien les startups que les entreprises établies, les institutions et les porteurs de projets.
+Notre approche repose sur l'écoute, la co-création, la rigueur technique et l'innovation continue. Qu'il s'agisse d'un besoin en consultation, en ingénierie ou en développement de produits, nous mobilisons une expertise adaptée pour faire passer les idées du concept à la réalité.
+Chez Nexus Consulting, nous croyons que chaque défi est une opportunité de construire un avenir plus intelligent, plus efficace et plus localement ancré.
+                    </p>
+                    
+                    <div class="flex flex-wrap gap-6 mb-8">
+                        <div class="flex items-center">
+                            <div class="bg-indigo-100 dark:bg-indigo-900 p-3 rounded-full mr-4">
+                                <i class="fas fa-check text-indigo-600 dark:text-indigo-300"></i>
+                            </div>
+                            <span class="font-medium">200+ satisfied clients</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="bg-indigo-100 dark:bg-indigo-900 p-3 rounded-full mr-4">
+                                <i class="fas fa-check text-indigo-600 dark:text-indigo-300"></i>
+                            </div>
+                            <span class="font-medium">50+ successful projects</span>
+                        </div>
+                    </div>
+                    
+                    <a href="#contact" class="bg-indigo-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-indigo-700 transition inline-block">
+                        Contact Us
+                    </a>
+                </div>
+                
+                <div class="lg:w-1/2">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1521791055366-0d553872125f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" 
+                             alt="Team working" 
+                             class="rounded-xl shadow-xl w-full">
+                        <div class="absolute -bottom-6 -left-6 bg-indigo-600 text-white p-6 rounded-xl shadow-lg hidden md:block">
+                            <div class="text-3xl font-bold">3+</div>
+                            <div class="text-sm">Years Experience</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="py-20 bg-gray-50 dark:bg-gray-900">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Notre <span class="text-gradient">Processus</span></h2>
+                <p class="max-w-2xl mx-auto text-gray-600 dark:text-gray-300">
+                    Une approche structurée et professionnelle pour transformer vos idées en réalité.
+                </p>
+            </div>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="relative">
+                    <!-- Timeline -->
+                    <div class="space-y-8">
+                        <!-- Step 1 -->
+                        <div class="timeline-item relative pl-16">
+                            <div class="absolute left-0 top-0 flex items-center justify-center w-12 h-12 rounded-full bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-300">
+                                <i class="fas fa-handshake text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">1. Prise de contact & cadrage</h3>
+                            <p class="text-gray-600 dark:text-gray-300">
+                                Discussion avec le client pour comprendre son idée, ses objectifs et ses contraintes.
+                                Signature d'un accord de confidentialité si nécessaire.
+                            </p>
+                            <p class="text-sm text-indigo-600 dark:text-indigo-400 mt-2">
+                                Livraison : Fiche projet / Cahier des charges simplifié
+                            </p>
+                        </div>
+                        
+                        <!-- Step 2 -->
+                        <div class="timeline-item relative pl-16">
+                            <div class="absolute left-0 top-0 flex items-center justify-center w-12 h-12 rounded-full bg-emerald-100 dark:bg-emerald-900 text-emerald-600 dark:text-emerald-300">
+                                <i class="fas fa-search text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">2. Analyse & étude de faisabilité</h3>
+                            <p class="text-gray-600 dark:text-gray-300">
+                                Étude des besoins techniques, choix des composants/matériaux.
+                                Estimation du budget, des délais, des risques.
+                            </p>
+                            <p class="text-sm text-emerald-600 dark:text-emerald-400 mt-2">
+                                Livraison : Rapport de faisabilité + devis
+                            </p>
+                        </div>
+                        
+                        <!-- Step 3 -->
+                        <div class="timeline-item relative pl-16">
+                            <div class="absolute left-0 top-0 flex items-center justify-center w-12 h-12 rounded-full bg-amber-100 dark:bg-amber-900 text-amber-600 dark:text-amber-300">
+                                <i class="fas fa-cube text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">3. Conception & modélisation</h3>
+                            <p class="text-gray-600 dark:text-gray-300">
+                                Réalisation de plans 3D / schémas électroniques / maquettes fonctionnelles.
+                                Ajustements en fonction des retours du client.
+                            </p>
+                            <p class="text-sm text-amber-600 dark:text-amber-400 mt-2">
+                                Livraison : Maquettes numériques (PDF, STL, STEP, etc.)
+                            </p>
+                        </div>
+                        
+                        <!-- Step 4 -->
+                        <div class="timeline-item relative pl-16">
+                            <div class="absolute left-0 top-0 flex items-center justify-center w-12 h-12 rounded-full bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-300">
+                                <i class="fas fa-tools text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">4. Prototypage & fabrication</h3>
+                            <p class="text-gray-600 dark:text-gray-300">
+                                Impression 3D, usinage ou assemblage électronique selon le cas.
+                                Tests fonctionnels en interne.
+                            </p>
+                            <p class="text-sm text-purple-600 dark:text-purple-400 mt-2">
+                                Livraison : Prototype physique ou virtuel + documentation technique
+                            </p>
+                        </div>
+
+                        <!-- Step 5 -->
+                        <div class="timeline-item relative pl-16">
+                            <div class="absolute left-0 top-0 flex items-center justify-center w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300">
+                                <i class="fas fa-vial text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">5. Tests terrain & itérations</h3>
+                            <p class="text-gray-600 dark:text-gray-300">
+                                Le client teste le prototype ou on organise un test ensemble.
+                                Améliorations selon les retours.
+                            </p>
+                            <p class="text-sm text-blue-600 dark:text-blue-400 mt-2">
+                                Livraison : Prototype amélioré + fiche d'évaluation
+                            </p>
+                        </div>
+
+                        <!-- Step 6 -->
+                        <div class="timeline-item relative pl-16">
+                            <div class="absolute left-0 top-0 flex items-center justify-center w-12 h-12 rounded-full bg-red-100 dark:bg-red-900 text-red-600 dark:text-red-300">
+                                <i class="fas fa-rocket text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">6. Suivi & accompagnement</h3>
+                            <p class="text-gray-600 dark:text-gray-300">
+                                Aide à la mise en production, au passage à l'échelle, ou à la certification.
+                                Possibilité de maintenance ou amélioration continue.
+                            </p>
+                            <p class="text-sm text-red-600 dark:text-red-400 mt-2">
+                                Livraison : Rapport final + plan d'actions ou mise en lien avec des partenaires industriels
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 bg-white dark:bg-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Nos <span class="text-gradient">Projets Réalisés</span></h2>
+                <p class="max-w-2xl mx-auto text-gray-600 dark:text-gray-300">
+                    Découvrez quelques-uns de nos projets récents et les solutions innovantes que nous avons développées.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Projet 1 -->
+                <div class="bg-gray-50 dark:bg-gray-700 rounded-xl overflow-hidden shadow-lg card-hover">
+                    <img src="Transitioning-from-Prototype-to-Low-volume-Production.jpeg" 
+                         alt="Prototype industriel" 
+                         class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Prototype Industriel</h3>
+                        <p class="text-indigo-600 dark:text-indigo-400 mb-4">Développement de Prototype</p>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">
+                            Conception et fabrication d'un prototype industriel pour une entreprise manufacturière.
+                        </p>
+                        <div class="flex items-center text-sm text-gray-500 dark:text-gray-400">
+                            <i class="fas fa-calendar-alt mr-2"></i>
+                            <span>Mai 2023</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Projet 2 -->
+                <div class="bg-gray-50 dark:bg-gray-700 rounded-xl overflow-hidden shadow-lg card-hover">
+                    <img src="systemes-electroniques-1.jpg" 
+                         alt="Système électronique" 
+                         class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Système Électronique</h3>
+                        <p class="text-emerald-600 dark:text-emerald-400 mb-4">Services Techniques & d'Ingénierie</p>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">
+                            Développement d'un système électronique sur mesure pour une application industrielle.
+                        </p>
+                        <div class="flex items-center text-sm text-gray-500 dark:text-gray-400">
+                            <i class="fas fa-calendar-alt mr-2"></i>
+                            <span>Avril 2023</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Projet 3 -->
+                <div class="bg-gray-50 dark:bg-gray-700 rounded-xl overflow-hidden shadow-lg card-hover">
+                    <img src="643d3b15a48889388eebe5ac_RZgWPWwZnOyovn20K8tue-jGcENmA0KJnWPbpJ84vwFAEMGpqZaQDojHQQ5QG_xfiFsnzUAwwJVpa2o9tGyzXvpXEc8QsLi_IYAa3hVr_TPyxEpJFpM9Gy9__ifFmOOnna4AV3J4IPbBdMcQThZilfA.jpeg" 
+                         alt="Micro-usine" 
+                         class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Micro-Usine</h3>
+                        <p class="text-purple-600 dark:text-purple-400 mb-4">Micro-industrie</p>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">
+                            Mise en place d'une micro-usine pour la production en petite série d'un produit innovant.
+                        </p>
+                        <div class="flex items-center text-sm text-gray-500 dark:text-gray-400">
+                            <i class="fas fa-calendar-alt mr-2"></i>
+                            <span>Mars 2023</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-20 bg-gray-50 dark:bg-gray-900">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Ce Que Disent Nos <span class="text-gradient">Clients</span></h2>
+                <p class="max-w-2xl mx-auto text-gray-600 dark:text-gray-300">
+                    Découvrez les retours d'expérience de nos clients satisfaits.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg testimonial-card">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 mr-2">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 mb-6 italic">
+                        "Le développement de notre prototype par Nexus Consulting a été une expérience exceptionnelle. Leur expertise technique et leur approche méthodique nous ont permis de valider notre concept rapidement et efficacement."
+                    </p>
+                    <div class="flex items-center">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" 
+                             alt="Client" 
+                             class="w-12 h-12 rounded-full mr-4 object-cover">
+                        <div>
+                            <h4 class="font-bold">Thomas Dubois</h4>
+                            <p class="text-gray-500 dark:text-gray-400 text-sm">Directeur Technique, InnovTech</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg testimonial-card">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 mr-2">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 mb-6 italic">
+                        "Les services de micro-industrie de Nexus nous ont permis de passer rapidement de la phase de prototype à la production en petite série. Leur atelier express et leur expertise en fabrication ont été déterminants pour notre succès."
+                    </p>
+                    <div class="flex items-center">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" 
+                             alt="Client" 
+                             class="w-12 h-12 rounded-full mr-4 object-cover">
+                        <div>
+                            <h4 class="font-bold">Sophie Martin</h4>
+                            <p class="text-gray-500 dark:text-gray-400 text-sm">CEO, MicroFab Solutions</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg testimonial-card">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 mr-2">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 mb-6 italic">
+                        "Les services techniques et d'ingénierie de Nexus ont été essentiels pour notre projet. Leur expertise en CAO, prototypage de circuits imprimés et usinage CNC nous a permis d'optimiser notre produit final."
+                    </p>
+                    <div class="flex items-center">
+                        <img src="https://randomuser.me/api/portraits/men/68.jpg" 
+                             alt="Client" 
+                             class="w-12 h-12 rounded-full mr-4 object-cover">
+                        <div>
+                            <h4 class="font-bold">Pierre Laurent</h4>
+                            <p class="text-gray-500 dark:text-gray-400 text-sm">Directeur R&D, TechElectro</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 gradient-bg text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">Prêt à Transformer Votre Entreprise ?</h2>
+            <p class="max-w-2xl mx-auto text-gray-200 mb-10">
+                Planifiez une consultation avec l'un de nos experts pour discuter de la façon dont nous pouvons aider votre entreprise à croître.
+            </p>
+            <a href="#contact" class="bg-white text-indigo-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition inline-block">
+                Commencer Aujourd'hui
+            </a>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-white dark:bg-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Contactez-<span class="text-gradient">Nous</span></h2>
+                <p class="max-w-2xl mx-auto text-gray-600 dark:text-gray-300">
+                    Vous avez des questions ou êtes prêt à démarrer votre projet ? Contactez-nous dès aujourd'hui.
+                </p>
+            </div>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Adresse -->
+                    <div class="bg-gray-50 dark:bg-gray-700 rounded-xl p-8 shadow-lg text-center">
+                        <div class="bg-indigo-100 dark:bg-indigo-900 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-map-marker-alt text-2xl text-indigo-600 dark:text-indigo-300"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Adresse</h3>
+                        <p class="text-gray-600 dark:text-gray-300">
+                            Avenue Fatima<br>
+                            Suite 171<br>
+                            Cap-haitien, 1110
+                        </p>
+                    </div>
+                    
+                    <!-- Téléphone -->
+                    <div class="bg-gray-50 dark:bg-gray-700 rounded-xl p-8 shadow-lg text-center">
+                        <div class="bg-emerald-100 dark:bg-emerald-900 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-phone-alt text-2xl text-emerald-600 dark:text-emerald-300"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Téléphone</h3>
+                        <p class="text-gray-600 dark:text-gray-300">
+                            +509 31 43 42 69<br>
+                            Lundi - Vendredi<br>
+                            9h00 - 18h00
+                        </p>
+                    </div>
+                    
+                    <!-- Email -->
+                    <div class="bg-gray-50 dark:bg-gray-700 rounded-xl p-8 shadow-lg text-center">
+                        <div class="bg-purple-100 dark:bg-purple-900 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-envelope text-2xl text-purple-600 dark:text-purple-300"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Email</h3>
+                        <p class="text-gray-600 dark:text-gray-300">
+                            contact@nexusconsulting.fr<br>
+                            Réponse sous 24h<br>
+                            Support 7j/7
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Réseaux Sociaux -->
+                <div class="mt-12 text-center">
+                    <h3 class="text-2xl font-bold mb-6">Suivez-Nous</h3>
+                    <div class="flex justify-center space-x-6">
+                        <a href="#" class="bg-indigo-100 dark:bg-indigo-900 w-12 h-12 rounded-full flex items-center justify-center text-indigo-600 dark:text-indigo-300 hover:bg-indigo-200 dark:hover:bg-indigo-800 transition">
+                            <i class="fab fa-facebook-f text-xl"></i>
+                        </a>
+                        <a href="#" class="bg-emerald-100 dark:bg-emerald-900 w-12 h-12 rounded-full flex items-center justify-center text-emerald-600 dark:text-emerald-300 hover:bg-emerald-200 dark:hover:bg-emerald-800 transition">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                        <a href="#" class="bg-purple-100 dark:bg-purple-900 w-12 h-12 rounded-full flex items-center justify-center text-purple-600 dark:text-purple-300 hover:bg-purple-200 dark:hover:bg-purple-800 transition">
+                            <i class="fab fa-linkedin-in text-xl"></i>
+                        </a>
+                        <a href="#" class="bg-blue-100 dark:bg-blue-900 w-12 h-12 rounded-full flex items-center justify-center text-blue-600 dark:text-blue-300 hover:bg-blue-200 dark:hover:bg-blue-800 transition">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <a href="#" class="text-2xl font-bold flex items-center mb-4">
+                        <i class="fas fa-cubes mr-2"></i>
+                        <span>Nexus</span>
+                    </a>
+                    <p class="text-gray-400 mb-4">
+                        Solutions innovantes pour la transformation de vos idées en réalité.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Services</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Consultation Stratégique</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Développement de Prototype</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Services Techniques & d'Ingénierie</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Micro-industrie</a></li>
+                    </ul>
+                </div>
+
+                <div class="text-center">
+                    <h4 class="text-lg font-semibold mb-4">Scanner le QR Code</h4>
+                    <img src="photo_2025-04-12_14-14-26-removebg-preview.png" 
+                         alt="QR Code" 
+                         class="w-32 h-32 bg-white p-2 rounded-lg mx-auto">
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-12 pt-8 text-center">
+                <p class="text-gray-400">&copy; 2023 Nexus Consulting. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Success Notification -->
+    <div id="success-notification" class="fixed bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg flex items-center hidden z-50">
+        <i class="fas fa-check-circle mr-2"></i>
+        <span id="success-message">Action completed successfully!</span>
+    </div>
+
+    <!-- Error Notification -->
+    <div id="error-notification" class="fixed bottom-4 right-4 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg flex items-center hidden z-50">
+        <i class="fas fa-exclamation-circle mr-2"></i>
+        <span id="error-message">An error occurred!</span>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const closeMenuButton = document.getElementById('close-menu');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileLinks = mobileMenu.querySelectorAll('a');
+            
+            // Ouvrir le menu mobile
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+            
+            // Fermer le menu mobile
+            closeMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+            
+            // Fermer le menu lors du clic sur un lien
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            });
+            
+            // Fermer le menu lors du clic en dehors
+            mobileMenu.addEventListener('click', (e) => {
+                if (e.target === mobileMenu) {
+                    mobileMenu.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+        });
+    </script>
+    <script src="currency.js"></script>
+</body>
+</html>
